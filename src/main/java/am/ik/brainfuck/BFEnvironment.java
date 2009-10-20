@@ -66,7 +66,7 @@ public class BFEnvironment {
 		return source.charAt(current);
 	}
 
-	public boolean hasNextChar() {
+	public boolean hasChar() {
 		return getCurrent() < sourceLength;
 	}
 

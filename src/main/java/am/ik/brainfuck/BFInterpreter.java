@@ -36,7 +36,7 @@ public class BFInterpreter {
 	}
 
 	public void eval() {
-		while (env.hasNextChar()) {
+		while (env.hasChar()) {
 			char c = env.getChar();
 			if (PROCESSOR_MAP.containsKey(c)) {
 				PROCESSOR_MAP.get(c).process(env);
