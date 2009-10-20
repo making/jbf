@@ -69,7 +69,7 @@ public class BrainfuckScriptEngine extends AbstractScriptEngine implements
 
 	@Override
 	public ScriptEngineFactory getFactory() {
-		throw new UnsupportedOperationException();
+		return new BrainfuckScriptEngineFactory();
 	}
 
 	@Override
