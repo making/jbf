@@ -1,5 +1,9 @@
 package am.ik.brainfuck.scripting;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.io.Reader;
 
 import javax.script.AbstractScriptEngine;
@@ -14,6 +18,16 @@ import am.ik.brainfuck.BFInterpreter;
 
 public class BrainfuckScriptEngine extends AbstractScriptEngine implements
 		Compilable {
+	private static InputStream in = System.in;
+	private static PrintStream out = System.out;
+
+	public static synchronized void setIn(InputStream in) {
+		BrainfuckScriptEngine.in = in;
+	}
+
+	public static synchronized void setOut(PrintStream out) {
+		BrainfuckScriptEngine.out = out;
+	}
 
 	@Override
 	public Bindings createBindings() {
@@ -25,6 +39,10 @@ public class BrainfuckScriptEngine extends AbstractScriptEngine implements
 			throws ScriptException {
 		try {
 			BFInterpreter interpreter = new BFInterpreter(script);
+			synchronized (BrainfuckScriptEngine.class) {
+				interpreter.setIn(in);
+				interpreter.setOut(out);
+			}
 			interpreter.eval();
 		} catch (Exception e) {
 			throw new ScriptException(e);
@@ -36,7 +54,17 @@ public class BrainfuckScriptEngine extends AbstractScriptEngine implements
 	@Override
 	public Object eval(Reader reader, ScriptContext context)
 			throws ScriptException {
-		throw new UnsupportedOperationException();
+		BufferedReader buffer = new BufferedReader(reader);
+		StringBuilder builder = new StringBuilder();
+		try {
+			String line = null;
+			while ((line = buffer.readLine()) != null) {
+				builder.append(line);
+			}
+		} catch (IOException e) {
+			throw new ScriptException(e);
+		}
+		return eval(buffer.toString(), context);
 	}
 
 	@Override
