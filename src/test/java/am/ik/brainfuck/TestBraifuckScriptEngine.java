@@ -8,27 +8,29 @@ import am.ik.brainfuck.scripting.BrainfuckScriptEngine;
 
 public class TestBraifuckScriptEngine extends TestCase {
 
-	protected void setUp() throws Exception {
-	}
+    @Override
+    protected void setUp() throws Exception {
+    }
 
-	public void testGetEngineByName() throws Exception {
-		ScriptEngineManager manager = new ScriptEngineManager();
-		for (String name : new String[] { "Brainfuck", "Brainf*ck",
-				"BrainFuck", "BrainF*ck", "brainfuck", "brainf*ck", "bf" }) {
-			ScriptEngine engine = manager.getEngineByName(name);
-			assertEquals(engine.getClass(), BrainfuckScriptEngine.class);
-		}
-	}
+    public void testGetEngineByName() throws Exception {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        for (String name : new String[] { "Brainfuck", "Brainf*ck",
+                "BrainFuck", "BrainF*ck", "brainfuck", "brainf*ck", "bf" }) {
+            ScriptEngine engine = manager.getEngineByName(name);
+            assertEquals(engine.getClass(), BrainfuckScriptEngine.class);
+        }
+    }
 
-	public void testGetEngineByExtension() throws Exception {
-		ScriptEngineManager manager = new ScriptEngineManager();
-		for (String extension : new String[] { "bf" }) {
-			ScriptEngine engine = manager.getEngineByExtension(extension);
-			assertEquals(engine.getClass(), BrainfuckScriptEngine.class);
-		}
-	}
+    public void testGetEngineByExtension() throws Exception {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        for (String extension : new String[] { "bf" }) {
+            ScriptEngine engine = manager.getEngineByExtension(extension);
+            assertEquals(engine.getClass(), BrainfuckScriptEngine.class);
+        }
+    }
 
-	protected void tearDown() throws Exception {
-	}
+    @Override
+    protected void tearDown() throws Exception {
+    }
 
 }
