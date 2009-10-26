@@ -35,7 +35,8 @@ public class BrainfuckServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         String path = req.getServletPath();
-        String source = FileUtil.slurp(bfDir + path);
+        String source = FileUtil.slurp(getClass().getResourceAsStream(
+                bfDir + path));
         BFInterpreter interpreter = new BFInterpreter(source);
         PrintStream stream = new PrintStream(res.getOutputStream());
         interpreter.setOut(stream);
